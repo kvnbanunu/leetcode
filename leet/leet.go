@@ -2,6 +2,29 @@ package leet
 
 import "slices"
 
+// p49 Group Anagrams
+func GroupAnagrams(strs []string) [][]string {
+	res := [][]string{}
+
+	seen := make(map[string][]string)
+
+	for _, s := range strs {
+		runes := []rune(s)
+		slices.Sort(runes)
+		if _, ok := seen[string(runes)]; ok {
+			seen[string(runes)] = append(seen[string(runes)], s)
+		} else {
+			seen[string(runes)] = []string{s}
+		}
+	}
+
+	for _, v := range seen {
+		res = append(res, v)
+	}
+
+	return res
+}
+
 // p128 Longest Consecutive Sequence
 func LongestConsecutive(nums []int) int {
 	if len(nums) == 0 {
